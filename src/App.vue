@@ -1,32 +1,55 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div>
+    <el-container style="height: 100vh;">
+      <el-header>Element Ui</el-header>
+      <el-container>
+        <el-aside width="200px">
+          <LeftView></LeftView>
+        </el-aside>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
+<script>
+import LeftView from '@/components/LeftView.vue'
+export default {
+  data() {
+    return {
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
     }
+  },
+  components: {
+    LeftView
   }
 }
+</script>
+<style lang="less">
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.el-header {
+  background-color: #434a50;
+  color: #fff;
+  text-align: center;
+  line-height: 60px;
+}
+
+.el-aside {
+  background-color: #545c64;
+  color: #fff;
+  text-align: center;
+  line-height: 200px;
+}
+
+.el-main {
+  background-color: #E9EEF3;
+  color: #333;
+  padding: 10px !important;
+}
+
 </style>

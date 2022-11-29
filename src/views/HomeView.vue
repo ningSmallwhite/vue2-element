@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <el-button @click="add">修改vuex中的数据</el-button><span>{{count}}</span>
     <el-transfer
     filterable
     :filter-method="filterMethod"
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   data() {
     // eslint-disable-next-line
@@ -34,6 +36,18 @@ export default {
         return item.pinyin.indexOf(query) > -1;
       }
     };
+  },
+   mounted() {
+    this.$store.dispatch('categoryList')
+  },
+  computed: {
+    ...mapState(['count'])
+  },
+  methods: {
+    add(){
+      this.$store.dispatch('add');
+    }
+    // 派发action
   }
 };
 </script>

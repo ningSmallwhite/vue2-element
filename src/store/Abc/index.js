@@ -1,7 +1,7 @@
 // Abc模块的小仓库
-import { reqCategoryList } from "@/api";
+// import { reqCategoryList } from "@/api";
 const state = {
-  categoryList: []
+  // categoryList: []
 };
 const mutations = {
   // categoryListAll(start,categoryList){
@@ -9,12 +9,12 @@ const mutations = {
   // }
 };
 const actions = {
-  async categoryList({commit}){
-    let result = await reqCategoryList();
-    if(result.code === 200){
-      commit("categoryListAll", result.data)
-    }
-  }
+  // async categoryList({commit}){
+  //   let result = await reqCategoryList();
+  //   if(result.code === 200){
+  //     commit("categoryListAll", result.data)
+  //   }
+  // }
 };
 const getters = {};
 export default {

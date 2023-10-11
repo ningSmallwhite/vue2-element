@@ -1,18 +1,24 @@
 <template>
   <div class="content">
-    <el-button @click="add">修改vuex中的数据</el-button><span>{{count}}</span>
-    <el-transfer
-    filterable
-    :filter-method="filterMethod"
-    filter-placeholder="请输入城市拼音"
-    v-model="value"
-    :data="data">
-  </el-transfer>
+    <div>
+      <div :class="{cur:curindex == index}" class="yiji" v-for="(item1, index) in categoryList" :key="item1.categoryId">
+        <span @mouseover="changIndex(index)" @mouseout="outIndex">{{ item1.categoryName }}</span>
+        <div class="erji" v-for="item2 in item1.categoryChild" :key="item2.categoryId">
+          <span class="erji-caidan">{{ item2.categoryName }}</span>
+          <div class="erji" v-for="item3 in item2.categoryChild" :key="item3.categoryId">
+            <span class="erji-caidan">{{item3.categoryName}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- --------------------- -->
+    <el-transfer filterable :filter-method="filterMethod" filter-placeholder="请输入城市拼音" v-model="value" :data="data">
+    </el-transfer>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 export default {
   data() {
     // eslint-disable-next-line
@@ -31,31 +37,53 @@ export default {
     };
     return {
       data: generateData(),
+      curindex: -1,
       value: [],
       filterMethod(query, item) {
         return item.pinyin.indexOf(query) > -1;
       }
     };
   },
-   mounted() {
+  mounted() {
     this.$store.dispatch('categoryList')
   },
   computed: {
-    ...mapState(['count'])
+    ...mapState({
+      categoryList: (state) => {
+        return state.home.categoryList;
+      }
+    })
   },
   methods: {
-    add(){
-      this.$store.dispatch('add');
+    changIndex(index){
+      this.curindex = index
+    },
+    outIndex() {
+      this.curindex = -1
     }
-    // 派发action
   }
 };
 </script>
 <style scoped>
 .content {
   position: absolute;
-  left: 58%;
+  /* left: 58%;
   top: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%) */
+}
+.yiji:hover .erji{
+  display: block;
+}
+.erji {
+  display: none;
+  margin-left: 200px;
+}
+.erji-caidan{
+  float: right;
+  border: 1px solid;
+  display: block;
+}
+.cur {
+  background-color: aqua;
 }
 </style>
